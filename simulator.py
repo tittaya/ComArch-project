@@ -4,10 +4,10 @@ import  assembler as a
 import printState  as p
 
 
-def simulate(PC, reg, mem):                                                                                                         #เอา mem มาอ่านแต่ละ PC เพื่อเอามาดูการทำงานในแต่ละคำสั่ง
-    count = 1                                                                                                                           #นับจำนวนคำสั่่งที่ทำ
+def simulate(PC, reg, mem): #เอา mem มาอ่านแต่ละ PC เพื่อเอามาดูการทำงานในแต่ละคำสั่ง
+    count = 1 #นับจำนวนคำสั่่งที่ทำ
     for i in range(0, 8):           
-        reg[i] = 0                                                                                                                   #เคลียร์ reg ให้เป็น 0 เพื่อทำการ simulate ใหม่ได้
+        reg[i] = 0 #เคลียร์ reg ให้เป็น 0 เพื่อทำการ simulate ใหม่ได้
     firstRange = 31
     lastRange = 32
     while PC < len(mem):                                                            
@@ -43,7 +43,7 @@ def simulate(PC, reg, mem):                                                     
             if A == B: #ถ้า regA กับ regB เป็นตัวเดียวกัน
                 reg[B] = PC + 1 #เก็บค่า PC+1 ใน regB
                 PC = PC + 1 #กระโดดไปที่ PC+1
-                reg[0] = 0                                                                                                               #reg[0] ต้องเป็น 0 ตลอด 
+                reg[0] = 0 #reg[0] ต้องเป็น 0 ตลอด 
                 continue
             else: #ถ้า regA กับ regB ไม่ใช่ตัวเดียวกัน
                 reg[B] = PC + 1 #เก็บค่า PC+1 ใน regB
