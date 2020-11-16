@@ -1,5 +1,5 @@
 import re
-import CodeType as c 
+import Type_Code as c 
 import  assembler as a
 import simulator  as s
 
