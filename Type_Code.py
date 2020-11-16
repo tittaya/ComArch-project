@@ -5,12 +5,12 @@ def label(fileName):                                         #labelAddr ใช�
     f2 = open(fileName, "r")
     pc = 0
     for line in f2:
-        test1 = re.split("\s+", line,2)                         #ตัดเป็น index [start,{45,234}]
-        if test1[0] != '' :                                      #เช็คไม่มี label
-            if test1[0] not in label_addr:                       #เช็คไม่ให้ใช้ label ซ้ำ
-                label_addr[test1[0]] = pc                         #เก็บ label map กับเลขบรรทัด(บรรทัดที่จะ jump ไป)
+        show = re.split("\s+", line,2)                         #ตัดเป็น index [start,{45,234}]
+        if show[0] != '' :                                      #เช็คไม่มี label
+            if show[0] not in label_addr:                       #เช็คไม่ให้ใช้ label ซ้ำ
+                label_addr[show[0]] = pc                         #เก็บ label map กับเลขบรรทัด(บรรทัดที่จะ jump ไป)
             else:
-                print('Duplicate label >> ' + test1[0])
+                print('Duplicate label >> ' + show[0])
                 exit(1)                                          #ทำงานเมื่อมี label ซ้ำ 
         pc+=1                                                    #บรรทัด ++
     return label_addr
