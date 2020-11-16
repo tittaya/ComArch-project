@@ -3,7 +3,7 @@ from Type_Code import J_type_GenCode,I_type_GenCode,O_type_GenCode,R_type_GenCod
 from assembler import Assembler
 from simulator import simulate
 
-fileName = "test.txt"                          #อ่านไฟล์ Assembly.txt เข้ามา
+fileName = "test.txt"                          #อ่านไฟล์ test.txt เข้ามา
 filetext = open(fileName,"r")
 #--------------------------------------------
 label_addr = labelAddr(fileName)               #create labels ไป Type_Code.py 
@@ -16,7 +16,7 @@ mem = []
 if len(line_arr) > 65536:
     print('Error: Overflow Memory')   
     exit(1)                                   
-for i in range(0,len(line_arr)):                #สร้าง mem เท่ากับจำนวนบรรทัด 
+for i in range(0,len(line_arr)):                #สร้าง mem ให้เท่ากับจำนวนบรรทัด 
     mem.append(0) 
 reg = []                                        #สร้าง register 8 ตัว ไว้เก็บค่า  เอาไปใช้ใน simulator
 for i in range(0,8):
