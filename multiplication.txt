@@ -1,7 +1,7 @@
  lw 0 4 mcand  
  lw 0 2 mplier
  lw 0 3 BitMp
- lw 0 5 nand
+ lw 0 5 MaxMp
 L1 lw 0 7 limit  
  beq 3 7 done 
  nand 2 3 7 
@@ -14,7 +14,7 @@ done halt
 mcand .fill 32766
 mplier .fill 10383
 BitMp .fill 1 
-nand .fill -1 
+MaxMp .fill -1 
 l1 .fill L1
 l2 .fill L2
 limit .fill 32768 
