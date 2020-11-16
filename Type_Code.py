@@ -1,11 +1,11 @@
 import re
 
-def labelAddr(fileName):                                         #labelAddr ใช้อ้างอิงบรรทัดที่จะ jump
+def label(fileName):                                         #labelAddr ใช้อ้างอิงบรรทัดที่จะ jump
     label_addr = {}                                              #เก็บบรรทัด และเลขบรรทัด
     f2 = open(fileName, "r")
     pc = 0
     for line in f2:
-        test1 = re.split(r"\s+", line,2)                         #ตัดเป็น index [start,{45,234}]
+        test1 = re.split("\s+", line,2)                         #ตัดเป็น index [start,{45,234}]
         if test1[0] != '' :                                      #เช็คไม่มี label
             if test1[0] not in label_addr:                       #เช็คไม่ให้ใช้ label ซ้ำ
                 label_addr[test1[0]] = pc                         #เก็บ label map กับเลขบรรทัด(บรรทัดที่จะ jump ไป)
@@ -38,6 +38,7 @@ def gen_16twoCom(intNumber):
             print("Overflow Number OffsetField")
             exit(1)
 
+
 def gen_32twoCom(intNumber):
     if intNumber < 0:
         if intNumber >= -2147483648:
@@ -57,10 +58,11 @@ def gen_32twoCom(intNumber):
         else:
             print("Overflow Number OffsetField")
             exit(1)
+
 #--------------------------------------------------------------------------------------
 
 #Type_Code 
-def R_type_GenCode(line_split):
+def Rtype(line_split):
     inst = line_split[1]
     regA = line_split[2]
     regB = line_split[3]
@@ -78,7 +80,7 @@ def R_type_GenCode(line_split):
 
 
 
-def I_type_GenCode(line_split,PC,label_addr):
+def Itype(line_split,PC,label_addr):
     inst = line_split[1]
     regA = line_split[2]
     regB = line_split[3]
@@ -112,7 +114,7 @@ def I_type_GenCode(line_split,PC,label_addr):
     return I_code
 
 
-def J_type_GenCode(line_split):
+def Jtype(line_split):
     
     regA = line_split[2]
     regB = line_split[3]
@@ -121,7 +123,7 @@ def J_type_GenCode(line_split):
     bi_regB = bin(int(regB))[2:].zfill(3)
     return '0000000'+opcode+bi_regA+bi_regB+'0000000000000000'
 
-def O_type_GenCode(line_split):
+def Otype(line_split):
     opcode = ''
     if line_split[1] == 'halt':
         opcode+='110'
