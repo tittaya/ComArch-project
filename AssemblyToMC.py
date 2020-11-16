@@ -1,12 +1,12 @@
 import re
-import Type_Code as c 
-import  assembler as a
-import simulator  as s
+from Type_Code import Jtype,Itype,Rtype,Otype,sign_extend32,label,gen_16twoCom,gen_32twoCom
+from assembler import  Assembler 
+from simulator import simulate  
 
 fileName = "combination.txt"                          #อ่านไฟล์ Assembly.txt เข้ามา
 filetext = open(fileName,"r")
 #--------------------------------------------
-label_addr = c.label(fileName)               #create labels ไป Type_Code.py 
+label_addr = label(fileName)               #create labels ไป Type_Code.py 
 #--------------------------------------------
 line_arr = []
 for line in filetext :
@@ -25,7 +25,7 @@ for i in range(0,8):
 PC=0
 while PC < len(line_arr):                           #วนจนกว่าจะหมดบรรทัด
     lineSplit = re.split(r"\s+", line_arr[PC],5)    #ตัด string ของแต่ละบรรทัดแบ่งช่องว่าง เป็น 5 index
-    a.Assembler(lineSplit,mem,PC,label_addr)          #go to assembler.py
+    Assembler(lineSplit,mem,PC,label_addr)          #go to assembler.py
     PC += 1
 #--------------------------------------------- 
     
