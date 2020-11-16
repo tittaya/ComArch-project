@@ -1,7 +1,7 @@
  lw 0 1 n 
- lw 0 2 r 
- lw 0 3 l1 
- jalr 3 7 
+ lw 0 2 r
+ lw 0 6 l1 
+ jalr 6 7 
  halt 
 L1 beq 2 0 L2 
  beq 1 2 L2 
