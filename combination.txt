@@ -1,0 +1,92 @@
+ lw 0 1 n input n
+ lw 0 2 r input r
+ lw 0 6 l1 
+ jalr 6 7 first caller
+ halt 
+L1 beq 2 0 L2 if r == 0 go L2
+ beq 1 2 L2 if n == r go L2
+ lw 0 6 extendstack
+ add 5 6 5 extendstack pointer +3 (reg5 is stack pointer)
+ lw 0 6 neg2 load -2 in temp reg6
+ add 6 5 6 
+ sw 6 7 stack store return address in mem[p-2]
+ lw 0 6 neg1
+ add 6 5 6
+ sw 6 1 stack store n in mem[p-1]
+ sw 5 2 stack store r in mem[p]
+ lw 0 6 neg1
+ add 1 6 1 n=n-1 , r = r
+ lw 0 6 l1 
+ jalr 6 7 call C(n-1,r) and store PC+1 in reg7 
+ lw 5 2 stack restore r to reg2
+ lw 0 6 neg1
+ add 6 5 6
+ lw 6 1 stack restore n to reg1
+ lw 0 6 neg1
+ add 1 6 1 n=n-1
+ add 2 6 2 r=r-1
+ lw 0 6 l1
+ jalr 6 7 call C(n-1,r-1)
+ lw 0 6 neg2 load -2
+ add 6 5 6
+ lw 6 7 stack restore return address in mem[p-2]
+ lw 0 6 neg3 pop stack -3 
+ add 5 6 5
+ jalr 7 0 jump back to caller
+L2 lw 0 6 one #function to add +1 to result(reg3)
+ add 3 6 3 reg3+=1
+ jalr 7 0 back to caller
+n .fill 7
+r .fill 3
+l1 .fill L1
+l2 .fill L2
+extendstack .fill 3
+neg1 .fill -1
+neg2 .fill -2
+one .fill 1
+neg3 .fill -3
+stack .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0
+ .fill 0

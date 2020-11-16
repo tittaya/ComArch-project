@@ -1,0 +1,29 @@
+ lw 0 1 number #load input to reg1
+ lw 0 2 number #prepare for first loop (loop = numberInput)
+ lw 0 6 zero 
+ beq 1 6 L4 # if input == 0 goto L4
+ lw 0 6 pos1 
+ beq 1 6 L4  # if input == 1 goto L4
+L1 lw 0 6 neg1 
+ add 2 6 2 numloop=numloop-1
+ lw 0 6 pos1 
+ beq 2 6 done if numloop == 1 halt
+ lw 0 7 zero count = 0
+ lw 0 3 zero prepare reg3 for new loop
+L2 add 3 1 3 first loop add number to reg3
+ lw 0 6 pos1
+ add 7 6 7 increament counter(reg7) 1
+ beq 7 2 L3 if counter == numloop go to L3 for store result in reg1 for next new input
+ lw 0 6 l2  else repeat loop
+ jalr 6 0 
+L3 add 0 3 1 store return value in reg1 and add new input to reg1 for next process 
+ lw 0 6 l1 
+ jalr 6 0 repeat process
+L4 lw 0 1 pos1 for baseCase  
+done halt
+number .fill 2
+neg1 .fill -1
+pos1 .fill 1
+zero .fill 0
+l1 .fill L1
+l2 .fill L2
