@@ -18,10 +18,10 @@ def label(fileName):                                         #labelAddr ใช�
 
 #GenCode 
 #-------------------------------------------------------------------------------------
-def gen_16twoCom(intNumber): #2's complement 16bits 
-    if intNumber < 0: #ถ้าเป็นเลขลบ
-        if intNumber >= -32768:
-            negNum = intNumber*-1
+def gen_16twoCom(intNum): #2's complement 16bits 
+    if intNum < 0: #ถ้าเป็นเลขลบ
+        if intNum >= -32768:
+            negNum = intNum*-1
             top = bin(32767)[2:].zfill(15)
             bi = bin(negNum)[2:].zfill(15)
             negate =  int(top,2) - int(bi,2) + int('1',2)
@@ -31,18 +31,18 @@ def gen_16twoCom(intNumber): #2's complement 16bits
             print("Overflow Number OffsetField")
             exit(1)
     else: #ถ้าไม่เป็นเลขลบ
-        result = bin(intNumber)[2:].zfill(16)
-        if intNumber < 32768:
+        result = bin(intNum)[2:].zfill(16)
+        if intNum < 32768:
             return result
         else: #ถ้ามากกว่าหรือเท่ากับ 32768 = overflow
             print("Overflow Number OffsetField")
             exit(1)
 
 
-def gen_32twoCom(intNumber): #2's complement 32bits 
-    if intNumber < 0: #ถ้าเป็นเลขลบ
-        if intNumber >= -2147483648:
-            negNum = intNumber*-1
+def gen_32twoCom(intNum): #2's complement 32bits 
+    if intNum < 0: #ถ้าเป็นเลขลบ
+        if intNum >= -2147483648:
+            negNum = intNum*-1
             top = bin(2147483647)[2:].zfill(31)
             bi = bin(negNum)[2:].zfill(31)
             negate =  int(top,2) - int(bi,2) + int('1',2)
@@ -52,8 +52,8 @@ def gen_32twoCom(intNumber): #2's complement 32bits
             print("Overflow Number OffsetField")
             exit(1)
     else: #ถ้าไม่เป็นเลขลบ
-        result = bin(intNumber)[2:].zfill(32)
-        if intNumber < 2147483648 :
+        result = bin(intNum)[2:].zfill(32)
+        if intNum < 2147483648 :
             return result
         else: #ถ้ามากกว่าหรือเท่ากับ 2147483648 = overflow
             print("Overflow Number OffsetField")
