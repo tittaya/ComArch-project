@@ -1,20 +1,20 @@
- lw 0 4 mcand  
+ lw 0 7 mcand  
  lw 0 2 mplier
- lw 0 3 BitMp
- lw 0 5 MaxMp
-L1 lw 0 7 limit  
- beq 3 7 done 
- nand 2 3 7 
- beq 5 7 L2 
- add 1 4 1 
-L2 add 4 4 4
- add 3 3 3 
- beq 0 0 L1 
+ lw 0 3 testBitMp
+ lw 0 5 testnand
+L1 lw 0 4 limit (load 15 to reg4) 
+ beq 3 4 done (if testBitMp = 15 round endProgram )
+ nand 2 3 4 (nand mp with testBitMp store result in reg4 )
+ beq 5 4 L2 (if nand result == -1 means mplier bit is zero then goto L2(no addition)   )
+ add 1 7 1 (add mcand to reg7 >> result in reg1)
+L2 add 7 7 7 (shift mcand left 1 bit)
+ add 3 3 3 (shift testBitMp left 1 bit)
+ beq 0 0 L1 (jump to L1)
 done halt 
 mcand .fill 32766
 mplier .fill 10383
-BitMp .fill 1 
-MaxMp .fill -1 
+testBitMp .fill 1 
+testnand .fill -1 (any number nand with zero always results -1(or one 32 bit) )
 l1 .fill L1
 l2 .fill L2
-limit .fill 32768 
+limit .fill 32768 (limit 15 bit)

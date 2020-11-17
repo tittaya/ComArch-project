@@ -5,12 +5,12 @@ def label(fileName):                                         #labelAddr ใช�
     f2 = open(fileName, "r")
     pc = 0
     for line in f2:
-        show = re.split("\s+", line,2)                         #ตัดเป็น index [start,{45,234}]
+        show = re.split(r"\s+", line,2)                         #ตัดเป็น index [start,{45,234}]
         if show[0] != '' :                                      #เช็คไม่มี label
             if show[0] not in label_addr:                       #เช็คไม่ให้ใช้ label ซ้ำ
                 label_addr[show[0]] = pc                         #เก็บ label map กับเลขบรรทัด(บรรทัดที่จะ jump ไป)
             else:
-                print('Duplicate label >> ' + show[0])
+                print('Duplicate label >> ' + test1[0])
                 exit(1)                                          #ทำงานเมื่อมี label ซ้ำ 
         pc+=1                                                    #บรรทัด ++
     return label_addr
@@ -18,26 +18,25 @@ def label(fileName):                                         #labelAddr ใช�
 
 #GenCode 
 #-------------------------------------------------------------------------------------
-def gen_16twoCom(intNum): #2's complement 16bits 
-    if intNum < 0: #ถ้าเป็นเลขลบ
-        if intNum >= -32768:
-            negNum = intNum*-1
+def gen_16twoCom(intNumber):#2's complement 16bits
+    if intNumber < 0:#ถ้าเป็นเลขลบ
+        if intNumber >= -32768:
+            negNum = intNumber*-1
             top = bin(32767)[2:].zfill(15)
             bi = bin(negNum)[2:].zfill(15)
             negate =  int(top,2) - int(bi,2) + int('1',2)
             result = '1'+bin(negate)[2:].zfill(15)
             return result #ได้เลขฐานสอง
-        else: #ถ้าน้อยกว่า -32768 = overflow
+        else:#ถ้าน้อยกว่า -32768 = overflow
             print("Overflow Number OffsetField")
             exit(1)
-    else: #ถ้าไม่เป็นเลขลบ
-        result = bin(intNum)[2:].zfill(16)
-        if intNum < 32768:
+    else:#ถ้าไม่เป็นเลขลบ
+        result = bin(intNumber)[2:].zfill(16)
+        if intNumber < 32768:
             return result
-        else: #ถ้ามากกว่าหรือเท่ากับ 32768 = overflow
+        else:#ถ้ามากกว่าหรือเท่ากับ 32768 = overflow
             print("Overflow Number OffsetField")
             exit(1)
-
 
 def gen_32twoCom(intNum): #2's complement 32bits 
     if intNum < 0: #ถ้าเป็นเลขลบ
@@ -62,7 +61,7 @@ def gen_32twoCom(intNum): #2's complement 32bits
 #--------------------------------------------------------------------------------------
 
 #Type_Code 
-def Rtype(line_split):
+def R_type(line_split):
     inst = line_split[1]
     regA = line_split[2]
     regB = line_split[3]
@@ -80,7 +79,8 @@ def Rtype(line_split):
 
 
 
-def Itype(line_split,PC,label_addr):
+
+def I_type(line_split,PC,label_addr):
     inst = line_split[1]
     regA = line_split[2]
     regB = line_split[3]
@@ -89,7 +89,6 @@ def Itype(line_split,PC,label_addr):
     bi_regA = bin(int(regA))[2:].zfill(3) #เปลี่ยนค่าใน regA เป็นเลขฐานสอง
     bi_regB = bin(int(regB))[2:].zfill(3) #เปลี่ยนค่าใน regฺB เป็นเลขฐานสอง
     bi_offset = ''
-
     if inst == 'lw':
         opcode+='010' #lw opcode = 010
     elif inst == 'sw':
@@ -109,12 +108,12 @@ def Itype(line_split,PC,label_addr):
                 bi_offset+=gen_16twoCom(intOffset)
             else:
                 bi_offset+=bin(int(label_addr[sym_addr]))[2:].zfill(16)
-    I_code = '0000000' + opcode + bi_regA + bi_regB + bi_offset #I-type format
+    I_code = '0000000' + opcode + bi_regA + bi_regB + bi_offset#I-type format
     
     return I_code
 
 
-def Jtype(line_split):
+def J_type(line_split):
     
     regA = line_split[2]
     regB = line_split[3]
@@ -123,7 +122,7 @@ def Jtype(line_split):
     bi_regB = bin(int(regB))[2:].zfill(3) #เปลี่ยนค่าใน regB เป็นเลขฐานสอง
     return '0000000'+opcode+bi_regA+bi_regB+'0000000000000000' #J-type format
 
-def Otype(line_split):
+def O_type(line_split):
     opcode = ''
     if line_split[1] == 'halt':
         opcode+='110' #halt opcode = 110
@@ -159,7 +158,7 @@ def sign_extend(value, bits):
 
 
 
-def twoCom_ToInt(biNumber32): #แปลง 2's complement เป็นฐานสิบ
+def twoCom_ToInt(biNumber32):#แปลง 2's complement เป็นฐานสิบ
     if biNumber32[0] == '0': #ถ้า sign bit เป็น 0 (เป็นเลขบวก)
         return int(biNumber32,2) 
     else: #ถ้า sign bit เป็น 1 (เป็นเลขลบ)

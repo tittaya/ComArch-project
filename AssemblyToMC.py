@@ -1,17 +1,20 @@
 import re
-import Type_Code as c 
-import  assembler as a
-import simulator  as s
+from Type_Code import J_type,I_type,O_type,R_type,gen_16twoCom,gen_32twoCom,sign_extend32,label
+from assembler import Assembler
+from simulator import simulate
+
 fileName = "combination.txt"                          #อ่านไฟล์ Assembly.txt เข้ามา
 filetext = open(fileName,"r")
 #--------------------------------------------
-label_addr = label(fileName)               #create labels ไป Type_Code.py 
+label_addr = label(fileName)               #สร้าง labels ไป Type_Code.py 
 #--------------------------------------------
 line_arr = []
 for line in filetext :
     line_arr.append(line)                      #store each line in array
 #--------------------------------------------
 mem = []
+
+
 if len(line_arr) > 65536:
     print('Error: Overflow Memory')   
     exit(1)                                   
@@ -29,10 +32,17 @@ while PC < len(line_arr):                           #วนจนกว่าจ
 #--------------------------------------------- 
     
 for i in range(0,len(mem)):
-    print('Address['+str(i)+']='+str(  mem[i])+' (hex '+str(hex(int(mem[i]) & (2**32-1)))+' )')
+    print('memory['+str(i)+']='+str(  mem[i]))
 startPC = 0
-s.simulate(startPC,reg,mem)
+simulate(startPC,reg,mem)
+def combination(n,r):
+    if n==r or r==0 :
+        return 1
+    else:
+        return combination(n-1,r) + combination(n-1,r-1)
+
 exit(0)
+
 
 
 
