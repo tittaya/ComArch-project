@@ -1,8 +1,7 @@
 import re
-from Type_Code import Jtype,Itype,Rtype,Otype,sign_extend32,label,gen_16twoCom,gen_32twoCom
-from assembler import  Assembler 
-from simulator import simulate  
-
+import Type_Code as c 
+import  assembler as a
+import simulator  as s
 fileName = "combination.txt"                          #อ่านไฟล์ Assembly.txt เข้ามา
 filetext = open(fileName,"r")
 #--------------------------------------------

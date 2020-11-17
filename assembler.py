@@ -1,4 +1,4 @@
-from Type_Code import Jtype,Itype,Otype,Rtype,gen_32twoCom
+import Type_Code as c
 
 def Assembler(lineSplit,mem,PC,label_addr):                                  
         if lineSplit[1] == 'add' or lineSplit[1] == 'nand'  :                          #เช็คตาม Type 

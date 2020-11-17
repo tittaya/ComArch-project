@@ -1,7 +1,8 @@
 import re
-from Type_Code import sign_extend32,twoCom_ToInt,sign_extend,gen_16twoCom,gen_32twoCom
-from assembler import  Assembler 
-from printState import printState  
+import Type_Code as c 
+import  assembler as a
+import printState  as p
+ 
 
 
 def simulate(PC, reg, mem): #เอา mem มาอ่านแต่ละ PC เพื่อเอามาดูการทำงานในแต่ละคำสั่ง
